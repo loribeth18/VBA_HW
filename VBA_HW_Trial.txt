@@ -1,0 +1,48 @@
+Sub homeworkVBA():
+    'Initialize Variables
+    Dim ticker As String
+    Dim total As Double
+    Dim stocktablerow As Integer
+    Dim lastrow As Long
+        
+    'Assigning intinal values to variables
+    stocktablerow = 2
+    lastrow = Cells(Rows.Count, "A").End(xlUp).Row
+        
+    'Set headers for summary table
+    ws.Cells(1, 9).Value = "Ticker"
+    ws.Cells(1, 10).Value = "Total Stock Volume"
+    
+    'iterate thru rows
+    For i = 2 To lastrow
+        'determine if 2 rows are not equal
+        If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+            'put ticker in summary table
+            ticker = Cells(i, 1).Value
+            Range("i" & stocktablerow).Value = ticker
+            'cells(stocktablerow,9).value= ticker
+            
+            'put total into summary table
+            total = Cells(i, 7).Value + total
+            Range("j" & stocktablerow).Value = total
+            
+            'move to next row in summary
+            stocktablerow = stocktablerow + 1
+            
+            'reset total
+            total = 0
+                        
+            
+        Else
+            'if rows are add to summary table
+            total = Cells(i, 7).Value + total
+            
+            
+        Cells(i + 1, 1).Value = Cells(i, 1).Value
+            
+        End If
+        
+    Next i
+        
+    
+End Sub
